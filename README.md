@@ -1,6 +1,6 @@
 ## ML-project for further usage 
 
-# The basic practice for ML deploy and MLOps is here. The main points:
+# Basic practice for deploying ML and MLOps can be found here. The main points:
 
 - Understanding the problem statement
 - Data collection
