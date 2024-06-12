@@ -50,9 +50,9 @@ class DataTransformation:
                 ('scaler',StandardScaler(with_mean=False))
                 ]
             )
-            logging.info('Numerical columns standard scaling completed')
+            logging.info('Numerical columns standard scaling completed (data_transformation)')
 
-            logging.info('Categorical columns encoding completed')
+            logging.info('Categorical columns encoding completed (data_transformation)')
         
             preprocessor=ColumnTransformer(
                 [
@@ -69,9 +69,9 @@ class DataTransformation:
             train_df=pd.read_csv(train_path)
             test_df=pd.read_csv(test_path)
 
-            logging.info('Read train and test data completed')
+            logging.info('Read train and test data completed (data_transformation)')
 
-            logging.info('Obtaining preprocessing object')
+            logging.info('Obtaining preprocessing object (data_transformation)')
 
             preprocessing_obj=self.get_data_transformer_object()
 
@@ -83,7 +83,7 @@ class DataTransformation:
             input_feature_test_df=test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df=test_df[target_column_name]
 
-            logging.info(f'Applying preprocessing object on training dataframe and testing dataframe')
+            logging.info(f'Applying preprocessing object on training dataframe and testing dataframe (data_transformation)')
         
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
@@ -93,7 +93,7 @@ class DataTransformation:
             ]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
-            logging.info(f'Saved preprocessing object') 
+            logging.info(f'Saved preprocessing object (data_transformation)') 
 
             save_object(
                 file_path=self.data_transformation_config.preprocessor_obj_file_path,
