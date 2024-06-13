@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 
 from src.exception import CustomException
-
+from src.logger import logging
 
 def save_object(file_path,obj):
     try:
@@ -22,11 +22,13 @@ def save_object(file_path,obj):
     except Exception as e:
         raise CustomException(e,sys)
     
-def evaluate_model(X_train, y_train, X_test, y_test, models, param):
+def evaluate_model(X_train, y_train,X_test,y_test,models,param):
     try:
+
         report = {}
-        
+
         for i in range(len(list(models))):
+            logging.info('The start of evaluate model is done (utils)')
             model = list(models.values())[i]
             para=param[list(models.keys())[i]]
 
@@ -34,17 +36,23 @@ def evaluate_model(X_train, y_train, X_test, y_test, models, param):
             gs.fit(X_train,y_train)
 
             model.set_params(**gs.best_params_)
-            model.fit(X_train, y_train)
+            model.fit(X_train,y_train)
+
+            #model.fit(X_train, y_train)  # Train model
 
             y_train_pred = model.predict(X_train)
+
             y_test_pred = model.predict(X_test)
 
-            train_model_score = r2_score(y_train,y_train_pred)
+            train_model_score = r2_score(y_train, y_train_pred)
+
             test_model_score = r2_score(y_test, y_test_pred)
 
             report[list(models.keys())[i]] = test_model_score
 
+        logging.info('The end of evaluate model is done (utils)')
         return report
+        
 
     except Exception as e:
         raise CustomException(e,sys)

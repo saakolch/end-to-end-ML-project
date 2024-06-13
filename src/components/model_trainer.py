@@ -39,16 +39,14 @@ class ModelTrainer:
                 test_array[:,-1]
             )     
             models = {
-                "Linear Regression": LinearRegression(),
-                "K-Neighbors Regressor": KNeighborsRegressor(),
                 "Decision Tree": DecisionTreeRegressor(),
-                "Random Forest Regressor": RandomForestRegressor(),
-                "XGBRegressor": XGBRegressor(), 
+                "Random Forest": RandomForestRegressor(),
+                "Gradient Boosting": GradientBoostingRegressor(),
+                "Linear Regression": LinearRegression(),
+                "XGBRegressor": XGBRegressor(),
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor(),
-                "Gradient boosting": GradientBoostingRegressor()
-            }   
-
+            }
             params={
                 "Decision Tree": {
                     'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
@@ -87,8 +85,11 @@ class ModelTrainer:
                 
             }
             logging.info('Params are done (model_trainer)')
+
             model_report:dict=evaluate_model(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models, param=params)
+            
             logging.info('Evaluate the model (model_trainer)')
+            
             best_model_score = max(sorted(model_report.values()))
 
             best_model_name = list(model_report.keys())[
