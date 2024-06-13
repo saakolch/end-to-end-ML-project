@@ -7,5 +7,5 @@
 - Data checks to perform
 - Exploratory data analysis(EDA)
 - Data pre-processing
-- Model training
+- Model training with hyperparameters(optimal)
 - Taking best model
